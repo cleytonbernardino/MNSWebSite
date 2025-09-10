@@ -1,0 +1,88 @@
+<div class="bg-[#100f1c] relative min-h-screen w-full flex items-center justify-center overflow-hidden p-4">
+  <!-- Blobs coloridos de fundo -->
+  <div class="absolute top-0 -left-1/4 w-96 h-96 bg-gradient-to-r from-green-400 to-blue-500 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob"></div>
+  <div class="absolute top-0 -right-1/4 w-96 h-96 bg-gradient-to-r from-red-400 to-pink-500 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
+  <div class="absolute -bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-400 to-teal-500 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
+  <div class="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob animation-delay-6000"></div>
+
+  <!-- Card de Login -->
+  <div class="w-full max-w-md p-8 space-y-6 rounded-2xl glass-effect z-10">
+    <div>
+      <h1 class="text-xl font-semibold text-gray-300">Meu Novo Sistema</h1>
+      <h2 class="mt-2 text-3xl font-bold text-white">Login</h2>
+    </div>
+
+    <!-- Card de erro -->
+    <div id="error-container" class="text-center">
+      <span id="server-error" class="hidden text-red-500 text-sm">Servidor indisponível. Tente novamente mais tarde.</span>
+    </div>
+
+    <form [formGroup]="loginForm" class="space-y-4 text-white" method="post" (ngSubmit)="onSubmit()">
+      <div>
+        <div class="text-sm font-medium text-gray-300">Email</div>
+        <input
+          type="email"
+          name="email"
+          formControlName="email"
+          placeholder="username@gmail.com"
+          required
+          class="mt-1 block w-full bg-white text-gray-900 placeholder-gray-500 px-4 py-3 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-pink-500 transition duration-300">
+        @if (email.touched) {
+          @if( email.hasError('required')) {
+            <span class="block text-red-500 text-sm text-right mr-5">Email é obrigatório</span>
+          } @else if ( email.hasError('email')) {
+            <span class="block text-red-500 text-sm text-right mr-5">Email Invalido</span>
+          }
+        }
+      </div>
+
+      <div>
+        <div class="text-sm font-medium text-gray-300">Password</div>
+        <div class="relative mt-1">
+          <input [type]="showPassword ? 'text' : 'password'"
+                 name="password"
+                 placeholder="Digite seu senha secreta"
+                 id="password"
+                 formControlName="password"
+                 class="block w-full bg-white text-gray-900 placeholder-gray-500 px-4 py-3 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-pink-500 transition duration-300">
+          <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600">
+            <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+          </button>
+        </div>
+        @if( email.hasError('required') && password.touched) {
+          <span class="block text-red-500 text-sm text-right mr-5">Senha é obrigatório</span>
+        }
+      </div>
+
+      <div class="text-right">
+        <a href="#" class="text-sm text-cyan-400 hover:underline">Forgot Password?</a>
+      </div>
+
+      <button type="submit" class="w-full py-3 px-4 text-white font-semibold rounded-lg bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-red-500 transition duration-300">
+        Sign in
+      </button>
+    </form>
+
+    <div class="flex items-center justify-center space-x-2">
+      <span class="h-px w-full bg-gray-600"></span>
+      <span class="text-gray-400 text-sm whitespace-nowrap">or continue with</span>
+      <span class="h-px w-full bg-gray-600"></span>
+    </div>
+
+    <div class="grid grid-cols-3 gap-4">
+      <button class="flex items-center justify-center p-3 rounded-lg glass-effect hover:bg-white/20 transition duration-300">
+        <svg class="w-6 h-6" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="#FFC107"/><path d="M44.5 20H24v8.5h11.8C34.7 33.9 30.1 37 24 37c-7.2 0-13-5.8-13-13s5.8-13 13-13c3.1 0 5.9 1.1 8.1 2.9l6.4-6.4C34.6 4.1 29.6 2 24 2 11.8 2 2 11.8 2 24s9.8 22 22 22c11 0 21-8 21-22 0-1.3-.2-2.7-.5-4z" fill="url(#paint0_linear)"/><defs><linearGradient id="paint0_linear" x1="2" y1="24" x2="44.5" y2="24" gradientUnits="userSpaceOnUse"><stop stop-color="#FFC107"/><stop offset="1" stop-color="#FFEA00"/></linearGradient></defs></svg>
+      </button>
+      <button class="flex items-center justify-center p-3 rounded-lg glass-effect hover:bg-white/20 transition duration-300">
+        <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </button>
+      <button class="flex items-center justify-center p-3 rounded-lg glass-effect hover:bg-white/20 transition duration-300">
+        <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
+      </button>
+    </div>
+
+    <div class="text-center text-sm text-gray-400">
+      Hire our services by <a href="#" class="font-semibold text-cyan-400 hover:underline">clicking here.</a>
+    </div>
+  </div>
+</div>

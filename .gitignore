@@ -1,0 +1,19 @@
+# Dependencies
+/node_modules
+
+# IDEs and editors
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Logs and other generated files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Other
+coverage/
+.angular/cache
