@@ -7,7 +7,7 @@ import {
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 
-// Interceptor baseado em função (Angular 15+)
+
 export const loggingInterceptor: HttpInterceptorFn =
   (req: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>> => {
     console.log('➡️ Requisição:', req.method, req.url, req.body);

@@ -1,0 +1,97 @@
+<div class="flex-1 overflow-y-auto">
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+    <div class="glassmorphism rounded-2xl p-6 flex items-center">
+      <div class="bg-blue-500/30 p-4 rounded-lg mr-4">
+        <fa-icon [icon]="faUsers" class="text-blue-300 text-2xl"></fa-icon>
+      </div>
+      <div>
+        <p class="text-gray-300">Total de Usuários</p>
+        <h2 class="text-2xl font-bold">1,250</h2>
+      </div>
+    </div>
+    <div class="glassmorphism rounded-2xl p-6 flex items-center">
+      <div class="bg-green-500/30 p-4 rounded-lg mr-4">
+        <fa-icon [icon]="faBuilding" class="text-green-300 text-2xl"></fa-icon>
+      </div>
+      <div>
+        <p class="text-gray-300">Total de Empresas</p>
+        <h2 class="text-2xl font-bold">150</h2>
+      </div>
+    </div>
+    <div class="glassmorphism rounded-2xl p-6 flex items-center">
+      <div class="bg-purple-500/30 p-4 rounded-lg mr-4">
+        <fa-icon [icon]="faDollarSign" class="text-purple-300 text-2xl"></fa-icon>
+      </div>
+      <div>
+        <p class="text-gray-300">Receita Mensal</p>
+        <h2 class="text-2xl font-bold">R$ 15,750</h2>
+      </div>
+    </div>
+    <div class="glassmorphism rounded-2xl p-6 flex items-center">
+      <div class="bg-pink-500/30 p-4 rounded-lg mr-4">
+        <fa-icon [icon]="faFileInvoiceDollar" class="text-pink-300 text-2xl"></fa-icon>
+      </div>
+      <div>
+        <p class="text-gray-300">Planos Ativos</p>
+        <h2 class="text-2xl font-bold">210</h2>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Users Table -->
+  <div class="glassmorphism rounded-2xl p-6">
+    <h3 class="text-xl font-semibold mb-4">Empresas Recentes</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-left">
+        <thead>
+        <tr class="border-b border-white/20">
+          <th class="p-3">Nome</th>
+          <th class="p-3">Email</th>
+          <th class="p-3">Empresa</th>
+          <th class="p-3">Plano</th>
+          <th class="p-3">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="border-b border-white/10 hover:bg-white/5">
+          <td class="p-3">Ana Silva</td>
+          <td class="p-3">ana.silva@example.com</td>
+          <td class="p-3">Tech Solutions</td>
+          <td class="p-3">Pro</td>
+          <td class="p-3"><span class="bg-green-500/50 text-green-100 px-2 py-1 rounded-full text-xs">Ativo</span></td>
+        </tr>
+        <tr class="border-b border-white/10 hover:bg-white/5">
+          <td class="p-3">Bruno Costa</td>
+          <td class="p-3">bruno.costa@example.com</td>
+          <td class="p-3">Inova Web</td>
+          <td class="p-3">Business</td>
+          <td class="p-3"><span class="bg-green-500/50 text-green-100 px-2 py-1 rounded-full text-xs">Ativo</span></td>
+        </tr>
+        <tr class="border-b border-white/10 hover:bg-white/5">
+          <td class="p-3">Carla Dias</td>
+          <td class="p-3">carla.dias@example.com</td>
+          <td class="p-3">Creative Minds</td>
+          <td class="p-3">Starter</td>
+          <td class="p-3"><span class="bg-yellow-500/50 text-yellow-100 px-2 py-1 rounded-full text-xs">Pendente</span></td>
+        </tr>
+        <tr class="border-b border-white/10 hover:bg-white/5">
+          <td class="p-3">Daniel Lima</td>
+          <td class="p-3">daniel.lima@example.com</td>
+          <td class="p-3">Data Corp</td>
+          <td class="p-3">Pro</td>
+          <td class="p-3"><span class="bg-red-500/50 text-red-100 px-2 py-1 rounded-full text-xs">Inativo</span></td>
+        </tr>
+        <tr class="hover:bg-white/5">
+          <td class="p-3">Eduarda Rocha</td>
+          <td class="p-3">eduarda.rocha@example.com</td>
+          <td class="p-3">Market Boost</td>
+          <td class="p-3">Business</td>
+          <td class="p-3"><span class="bg-green-500/50 text-green-100 px-2 py-1 rounded-full text-xs">Ativo</span></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+

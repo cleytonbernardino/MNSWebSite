@@ -1,0 +1,7 @@
+.sidebar-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+.sidebar-item.active {
+  background: rgba(255, 255, 255, 0.25);
+  font-weight: 600;
+}

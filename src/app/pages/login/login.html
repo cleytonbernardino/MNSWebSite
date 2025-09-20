@@ -4,7 +4,11 @@
   <div class="absolute top-0 -right-1/4 w-96 h-96 bg-gradient-to-r from-red-400 to-pink-500 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob animation-delay-2000"></div>
   <div class="absolute -bottom-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-cyan-400 to-teal-500 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob animation-delay-4000"></div>
   <div class="absolute -bottom-1/4 -right-1/4 w-96 h-96 bg-gradient-to-r from-purple-400 to-indigo-500 rounded-full mix-blend-screen filter blur-3xl opacity-50 animate-blob animation-delay-6000"></div>
-
+  @if (isAuthenticated) {
+  <div class="h-fit">
+    <span class="text-cyan-400 text-5xl text-glow">Você já está logado</span>
+  </div>
+  } @else {
   <!-- Card de Login -->
   <div class="w-full max-w-md p-8 space-y-6 rounded-2xl glass-effect z-10">
     <div>
@@ -13,8 +17,10 @@
     </div>
 
     <!-- Card de erro -->
-    <div id="error-container" class="text-center">
-      <span id="server-error" class="hidden text-red-500 text-sm">Servidor indisponível. Tente novamente mais tarde.</span>
+    <div class="text-center">
+      @for (error of errorMessage(); track error) {
+        <span class="text-red-500 text-sm">{{error}}</span>
+      }
     </div>
 
     <form [formGroup]="loginForm" class="space-y-4 text-white" method="post" (ngSubmit)="onSubmit()">
@@ -39,17 +45,17 @@
       <div>
         <div class="text-sm font-medium text-gray-300">Password</div>
         <div class="relative mt-1">
-          <input [type]="showPassword ? 'text' : 'password'"
+          <input [type]="showPassword() ? 'text' : 'password'"
                  name="password"
                  placeholder="Digite seu senha secreta"
                  id="password"
                  formControlName="password"
                  class="block w-full bg-white text-gray-900 placeholder-gray-500 px-4 py-3 rounded-lg border-none focus:outline-none focus:ring-2 focus:ring-pink-500 transition duration-300">
           <button type="button" (click)="togglePasswordVisibility()" class="absolute inset-y-0 right-0 flex items-center px-4 text-gray-600">
-            <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+            <fa-icon [icon]="showPassword() ? faEyeSlash : faEye"></fa-icon>
           </button>
         </div>
-        @if( email.hasError('required') && password.touched) {
+        @if( password.hasError('required') && password.touched) {
           <span class="block text-red-500 text-sm text-right mr-5">Senha é obrigatório</span>
         }
       </div>
@@ -85,4 +91,5 @@
       Hire our services by <a href="#" class="font-semibold text-cyan-400 hover:underline">clicking here.</a>
     </div>
   </div>
+  }
 </div>
