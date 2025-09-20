@@ -27,7 +27,7 @@ stages:
         git checkout main
 
         git remote remove github || true
-        git remote add github https://$GITHUB_TOKEN@github.com/$GITHUB_OWNER/$GITHUB_REPO.git
+        git remote add github https://$GITHUB_TOKEN@github.com/$GITHUB_OWNER/$GITHUB_REPO_SITE.git
 
         git push github main:main
         git push github --tags
