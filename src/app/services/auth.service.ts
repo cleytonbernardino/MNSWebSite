@@ -42,7 +42,7 @@ export class AuthService {
       withCredentials: true
     })
       .pipe(
-        tap(response => this.setAccessToken(response.tokens.accessToken)),
+        tap(response => this.setAccessToken(response.accessToken)),
         catchError(error => {
           return throwError(() => error);
         })
@@ -50,8 +50,7 @@ export class AuthService {
   }
 
   logout(): Observable<void> {
-    const request = {accessToken: this.getAccessToken()}
-    return this.http.post<void>(`${this.apiUrl}/auth/logout`, request, {
+    return this.http.get<void>(`${this.apiUrl}/auth/logout`, {
       withCredentials: true
     }).pipe(
       catchError(() => NEVER),
@@ -76,7 +75,7 @@ export class AuthService {
 
     this.isRefreshingSignal.set(true);
 
-    return this.http.post<Token>(`${this.apiUrl}/auth/refresh`, {}, {
+    return this.http.get<Token>(`${this.apiUrl}/auth/refresh`, {
       withCredentials: true
     }).pipe(
       switchMap((response) => {
@@ -87,7 +86,7 @@ export class AuthService {
       }),
       catchError((error: HttpErrorResponse) => {
         this.isRefreshingSignal.set(false);
-        this.clearAccessToken();
+        //this.clearAccessToken();
         this.handleAuthError();
         return throwError(() => error);
       })

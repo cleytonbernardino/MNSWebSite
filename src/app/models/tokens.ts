@@ -1,6 +1,6 @@
 ﻿interface ResponseLogin {
     firstName: string;
-    tokens: Token;
+    accessToken: string;
 }
 
 interface Token {

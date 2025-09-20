@@ -2,10 +2,12 @@ import {HttpErrorResponse, HttpInterceptorFn, HttpRequest} from '@angular/common
 import {inject} from '@angular/core';
 import {AuthService} from '../services/auth.service';
 import {catchError, switchMap, throwError} from 'rxjs';
+import {Router} from '@angular/router';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
-  const authReq = addAuthHeader(req, authService)
+  const router = inject(Router);
+  const authReq = addAuthHeader(req, authService);
 
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
@@ -20,6 +22,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
           }),
           catchError(error => throwError(() => error))
         );
+      } else if (error.status === 403){
+          let _ = router.navigateByUrl('/');
       }
       return throwError(() => error);
     })

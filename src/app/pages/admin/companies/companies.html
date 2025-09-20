@@ -28,7 +28,7 @@
             @for (company of companies; track company.id) {
               <tr class="border-b border-white/10 hover:bg-white/5 cursor-pointer">
                 <td class="p-3">{{company.doingBusinessAs}}</td>
-                <td class="p-3">{{ company.managerName }}a</td>
+                <td class="p-3">{{ company.managerName }}</td>
                 <td class="p-3">{{ company.subscriptionPlan }}</td>
                 <td class="p-3">
                   @if (company.subscriptionStatus) {
