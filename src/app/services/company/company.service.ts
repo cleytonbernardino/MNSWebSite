@@ -15,6 +15,10 @@ export class CompanyService {
     return this.http.get<ResponseCompany>(apiUrl);
   }
 
+  register(request: RequestRegisterCompany): Observable<void> {
+    return this.http.post<void>(apiUrl, request);
+  }
+
   delete(companyId: string) {
     return this.http.delete(`${apiUrl}/${companyId}`);
   }
