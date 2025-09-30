@@ -1,8 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {catchError, map, Observable, retry, throwError} from 'rxjs';
-import {Companies} from '../pages/admin/companies/companies';
+import {environment} from '../../../environments/environment';
+import {Observable, throwError} from 'rxjs';
 
 const apiUrl = `${environment.apiUrl}/admin/company`;
 
@@ -14,6 +13,10 @@ export class CompanyService {
 
   getCompanies(): Observable<ResponseCompany> {
     return this.http.get<ResponseCompany>(apiUrl);
+  }
+
+  delete(companyId: string) {
+    return this.http.delete(`${apiUrl}/${companyId}`);
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {
