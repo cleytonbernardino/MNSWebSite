@@ -1,6 +1,6 @@
-import {Component, inject, output} from '@angular/core';
+import {Component, inject, Input, output} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {RegisterCompanyService} from '../../../services/company/register-company.service';
+import {CompanyFormService} from '../../../services/company/company-form.service';
 
 @Component({
   selector: 'app-address-information',
@@ -27,7 +27,7 @@ import {RegisterCompanyService} from '../../../services/company/register-company
                  id="address"
                  formControlName="address"
                  class="bg-white/10 border border-white/20 text-white text-sm rounded-lg focus:ring-purple-500
-                     focus:border-purple-500 block w-full p-2.5" placeholder="mms.com/medical" required>
+                     focus:border-purple-500 block w-full p-2.5" placeholder="Avenida Palista" required>
           @if (formStep.get('address')?.invalid && formStep.get('address')?.touched){
             <div class="text-red-50 mt-5">Endereço não pode está vazio.</div>
           }
@@ -66,12 +66,12 @@ import {RegisterCompanyService} from '../../../services/company/register-company
   `
 })
 export class AddressInformationComponent {
-  private registerCompanyService = inject(RegisterCompanyService);
+  private companyFormService = inject(CompanyFormService);
 
   onComplete = output<void>();
   onBack = output<void>();
 
-  formStep: FormGroup = this.registerCompanyService.getStep('addressInformation');
+  formStep: FormGroup = this.companyFormService.getStep('addressInformation');
 
   next(): void {
     if (this.formStep.valid){

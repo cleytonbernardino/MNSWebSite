@@ -1,5 +1,5 @@
-import {Component, inject, output} from '@angular/core';
-import {RegisterCompanyService} from '../../../services/company/register-company.service';
+import {Component, inject, Input, output} from '@angular/core';
+import {CompanyFormService} from '../../../services/company/company-form.service';
 import {ReactiveFormsModule, FormGroup} from '@angular/forms'
 
 @Component({
@@ -24,7 +24,7 @@ import {ReactiveFormsModule, FormGroup} from '@angular/forms'
                  id="website"
                  formControlName="webSite"
                  class="bg-white/10 border border-white/20 text-white text-sm rounded-lg focus:ring-purple-500
-                       focus:border-purple-500 block w-full p-2.5" placeholder="mms.com/medical" required>
+                       focus:border-purple-500 block w-full p-2.5" placeholder="mms.com/medical">
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -50,6 +50,7 @@ import {ReactiveFormsModule, FormGroup} from '@angular/forms'
         </button>
         <button
           type="submit"
+          [disabled]="formStep.invalid"
           class="w-full md:w-auto bg-purple-600 hover:bg-purple-700 focus:ring-4 focus:outline-none focus:ring-purple-800
                font-medium rounded-lg text-sm px-8 py-3 text-center transition-colors duration-300"
         >
@@ -60,12 +61,12 @@ import {ReactiveFormsModule, FormGroup} from '@angular/forms'
   `
 })
 export class AdditionalInformationComponent {
-  private registerCompanyService = inject(RegisterCompanyService);
+  private companyFormService = inject(CompanyFormService);
 
   onComplete = output<void>();
   onBack = output<void>();
 
-  formStep: FormGroup = this.registerCompanyService.getStep('additionalInformation');
+  formStep: FormGroup = this.companyFormService.getStep('additionalInformation');
 
   next(): void {
     if (this.formStep.valid || this.formStep.invalid){

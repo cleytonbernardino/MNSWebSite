@@ -24,7 +24,8 @@ export const routes: Routes = [
     children: [
       {path: '', component: ControlPanelAdmin},
       {path: 'companies', component: Companies},
-      {path: 'companies/add', component: AddCompanyComponent}
+      {path: 'companies/add', component: AddCompanyComponent},
+      {path: 'companies/:id/update', component: UpdateCompany}
     ]
   },
   {

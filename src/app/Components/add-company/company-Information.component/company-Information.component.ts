@@ -1,6 +1,6 @@
-import {Component, inject, OnInit, output} from '@angular/core';
+import {Component, inject, Input, input, OnInit, output} from '@angular/core';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
-import {RegisterCompanyService} from '../../../services/company/register-company.service';
+import {CompanyFormService} from '../../../services/company/company-form.service';
 
 @Component({
   selector: 'app-company-information',
@@ -12,7 +12,9 @@ import {RegisterCompanyService} from '../../../services/company/register-company
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
           <label for="company_name" class="block mb-2 text-sm font-medium text-gray-300">Nome da Empresa</label>
-          <input type="text"
+          <input
+                 [readOnly]="updateMode"
+                 type="text"
                  id="company_name"
                  formControlName="legalName"
                  class="bg-white/10 border border-white/20 text-white text-sm rounded-lg focus:ring-purple-500
@@ -31,7 +33,9 @@ import {RegisterCompanyService} from '../../../services/company/register-company
         </div>
         <div>
           <label for="cnpj" class="block mb-2 text-sm font-medium text-gray-300">CNPJ</label>
-          <input type="text"
+          <input
+                 [readOnly]="updateMode"
+                 type="text"
                  id="cnpj"
                  formControlName="cnpj"
                  class="bg-white/10 border border-white/20 text-white text-sm rounded-lg focus:ring-purple-500
@@ -74,11 +78,13 @@ import {RegisterCompanyService} from '../../../services/company/register-company
   `
 })
 export class CompanyInformationComponent {
-  private formRegisterService = inject(RegisterCompanyService);
+  private companyFormService = inject(CompanyFormService);
 
   onComplete = output<void>();
 
-  formStep: FormGroup = this.formRegisterService.getStep('companyInformation');
+  @Input() updateMode: boolean = false;
+
+  formStep: FormGroup = this.companyFormService.getStep('companyInformation');
 
   next() : void {
     if(this.formStep.valid){

@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterCompanyService {
+export class CompanyFormService{
   private readonly form: FormGroup;
 
   constructor(private fb: FormBuilder) {
@@ -36,11 +36,32 @@ export class RegisterCompanyService {
     return this.form;
   }
 
+  loadData(data: ResponseCompany): void {
+    this.form.patchValue({
+      companyInformation: {
+        legalName: data.legalName,
+        doingBusinessAs: data.doingBusinessAs,
+        businessEmail: data.businessEmail,
+        cnpj: data.cnpj,
+        phoneNumber: data.phoneNumber
+      },
+      addressInformation: {
+        cep: data.cep,
+        address: data.address,
+        addressNumber : data.addressNumber
+      },
+      additionalInformation:{
+        whatsappApiNumber: '',
+        webSite: data.website
+      }
+    });
+  }
+
   reset(): void {
     this.form.reset();
   }
 
-  convertToRequest(): object {
+  getData(): object {
     const companyInfo = this.getStep('companyInformation');
     const addressInfo = this.getStep('addressInformation');
     const additionalInfo = this.getStep('additionalInformation');

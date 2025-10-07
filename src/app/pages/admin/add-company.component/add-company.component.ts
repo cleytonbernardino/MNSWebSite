@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {faArrowLeft} from '@fortawesome/free-solid-svg-icons';
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
 import {ActivatedRoute, Router, RouterLink} from '@angular/router';
@@ -12,7 +12,7 @@ import {
   AdditionalInformationComponent
 } from '../../../Components/add-company/additional-information.component/additional-information.component';
 import {CompanyService} from '../../../services/company/company.service';
-import {RegisterCompanyService} from '../../../services/company/register-company.service';
+import {CompanyFormService} from '../../../services/company/company-form.service';
 import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
@@ -51,9 +51,9 @@ import {HttpErrorResponse} from '@angular/common/http';
     </div>
   `
 })
-export class AddCompanyComponent {
+export class AddCompanyComponent implements OnInit{
   private companyService = inject(CompanyService);
-  private companyRegisterService = inject(RegisterCompanyService);
+  private companyFormService = inject(CompanyFormService);
   private router = inject(Router);
   private activeRoute = inject(ActivatedRoute);
 
@@ -62,10 +62,12 @@ export class AddCompanyComponent {
   currentStep: number = 1;
   errors: string[] = [];
 
-  completeRegistration(): void{
-    console.warn(this.companyRegisterService.convertToRequest())
-    const request: RequestRegisterCompany = <RequestRegisterCompany> this.companyRegisterService.convertToRequest();
+  ngOnInit(): void {
+    this.companyFormService.reset();
+  }
 
+  completeRegistration(): void{
+    const request: RequestRegisterCompany = <RequestRegisterCompany> this.companyFormService.getData();
 
     this.companyService.register(request).subscribe({
       next: success => {

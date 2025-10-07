@@ -1,13 +1,19 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {faPencil, faPlus, faTrashCan} from '@fortawesome/free-solid-svg-icons'
 import {FaIconComponent} from '@fortawesome/angular-fontawesome';
-import {RouterLink} from '@angular/router';
+import {ActivatedRoute, Router, RouterLink} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {CompanyService} from '../../../services/company/company.service';
 import {
   ConfirmationDialogComponent,
   ConfirmationDialogData
 } from '../../../Components/confirmation-dialog.component/confirmation-dialog.component';
+
+class Icons {
+  protected readonly faPencil = faPencil;
+  protected readonly faTrashCan = faTrashCan;
+  protected readonly faPlus = faPlus;
+}
 
 @Component({
   selector: 'app-companies',
@@ -59,7 +65,11 @@ import {
 
                   </td>
                   <td class="p-3 space-x-2 text-lg">
-                    <button class="hover:text-purple-400 cursor-pointer"><fa-icon [icon]="faPencil"></fa-icon></button>
+                    <button
+                      (click)="update(company.id)"
+                      class="hover:text-purple-400 cursor-pointer">
+                      <fa-icon [icon]="faPencil"></fa-icon>
+                    </button>
                     <button
                       (click)="delete(company.id)"
                       class="hover:text-red-400 cursor-pointer">
@@ -76,21 +86,23 @@ import {
     </div>
   `
 })
-export class Companies implements OnInit {
-  faPencil = faPencil;
-  faTrashCan = faTrashCan;
-  faPlus = faPlus;
-
+export class Companies extends Icons implements OnInit {
   private companyService = inject(CompanyService);
   private dialog = inject(MatDialog);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
-  public companies: Company[] = [];
+  public companies: ShortCompany[] = [];
 
   ngOnInit() {
     this.companyService.getCompanies().subscribe({
       next: res => this.companies = res.companies,
       error: err => console.error('Erro ao carregar os dados da empresa')
     })
+  }
+
+  update(companyId: string): void {
+    this.router.navigate([companyId, 'update'], {relativeTo: this.route})
   }
 
   delete(companyId: string) {
@@ -105,7 +117,7 @@ export class Companies implements OnInit {
       .afterClosed()
       .subscribe((confirmed: boolean) => {
         if(confirmed){
-          console.log('Apagado');
+          window.location.reload();
         }else {
           return;
         }
