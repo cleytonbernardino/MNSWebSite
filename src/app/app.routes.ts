@@ -15,6 +15,8 @@ import {
 import {
   AdditionalInformationComponent
 } from './Components/add-company/additional-information.component/additional-information.component';
+import {UpdateCompany} from './pages/admin/update-company/update-company';
+import {DetailCompanyComponent} from './pages/admin/detail-company.component/detail-company.component';
 
 export const routes: Routes = [
   {
@@ -25,6 +27,7 @@ export const routes: Routes = [
       {path: '', component: ControlPanelAdmin},
       {path: 'companies', component: Companies},
       {path: 'companies/add', component: AddCompanyComponent},
+      {path: 'companies/:id', component: DetailCompanyComponent},
       {path: 'companies/:id/update', component: UpdateCompany}
     ]
   },

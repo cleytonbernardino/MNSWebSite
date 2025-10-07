@@ -1,0 +1,160 @@
+<div class="glassmorphism rounded-2xl p-6 lg:p-8 flex-1 p-6 sm:p-10 text-white">
+
+  <loading-component [loadingStatus]="isLoading">
+    <!-- Cabeçalho -->
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5">
+      <div class="flex items-center gap-5">
+        <div class="hover:bg-white/10 rounded-full p-3 cursor-pointer">
+          <button routerLink="../" class="text-lg cursor-pointer">
+            <fa-icon [icon]="faArrowLeft"></fa-icon>
+          </button>
+        </div>
+        <div>
+          <h2 class="text-3xl font-bold">{{ companyData.legalName }}</h2>
+          <p class="text-white/80">Software e Inovação Digital</p>
+        </div>
+      </div>
+      <div class="flex gap-3 mt-4 sm:mt-0">
+        <button
+          (click)="update()"
+          class="bg-white/20 hover:bg-white/30 transition-colors text-white font-semibold py-2 px-4 rounded-lg flex
+           items-center cursor-pointer gap-2">
+          <fa-icon [icon]="faPencil" class="w-4 h-4"></fa-icon> Editar
+        </button>
+        <button
+          (click)="delete()"
+          class="bg-red-500/50 hover:bg-red-500/70 transition-colors text-white font-semibold py-2 px-4 rounded-lg flex
+           cursor-pointer items-center gap-2">
+          <fa-icon [icon]="faTrashCan" class="w-4 h-4 text-white-50"></fa-icon> Excluir
+        </button>
+      </div>
+    </div>
+
+    <!-- Seção de KPIs -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      <div class="glass-card p-5 rounded-xl">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-medium text-white/80">Plano Contrado</h3>
+        </div>
+        <p class="mt-2">
+          <fa-icon [icon]="faFileContract" class="text-2xl mr-2"></fa-icon>
+          <span class="text-3xl font-bold">Plus</span>
+        </p>
+      </div>
+      <div class="glass-card p-5 rounded-xl">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-medium text-white/80">CNPJ</h3>
+        </div>
+        <p class="mt-2">
+          <fa-icon [icon]="faIdCard" class="text-2xl mr-2"></fa-icon>
+          <span class="md:text-2xl text-3xl font-bold">{{ companyData.cnpj }}</span>
+        </p>
+      </div>
+      <div class="glass-card p-5 rounded-xl">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-medium text-white/80">Responsável</h3>
+        </div>
+        <p class="mt-2">
+          <fa-icon [icon]="faUserTie" class="text-2xl mr-2"></fa-icon>
+          <span class="font-bold text-3xl capitalize">{{ companyData.manager || 'Sem Infomações'  }}</span>
+        </p>
+      </div>
+      <div class="glass-card p-5 rounded-xl">
+        <div class="flex items-center justify-between">
+          <h3 class="text-sm font-medium text-white/80">Status da Assinatura</h3>
+        </div>
+        <p class="mt-2">
+          @if (companyData.subscriptionStatus) {
+            <fa-icon [icon]="faCircleCheck" class="text-2xl text-emerald-600 mr-2"></fa-icon>
+            <span class="font-bold text-3xl">Ativo</span>
+          } @else {
+            <fa-icon [icon]="faCircleXmark" class="text-2xl text-red-600 mr-2"></fa-icon>
+            <span class="font-bold text-3xl">Desativado</span>
+          }
+        </p>
+      </div>
+    </section>
+
+    <!-- Grid De Informações -->
+    <div class="grid lg:grid-cols-3 gap-8">
+
+      <!-- Informações Gerais -->
+      <section>
+        <h3 class="text-xl font-semibold mb-4">Informações Gerais</h3>
+        <div class="space-y-4 text-white/90">
+          <div class="flex items-start gap-3">
+            <fa-icon [icon]="faBuilding" class="w-5 h-5 mt-1"></fa-icon>
+            <div>
+              <strong>Nome Fantasia:</strong><br>
+              <span>{{ companyData.doingBusinessAs }}</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <fa-icon [icon]="faGlobe" class="w-5 h-5 mt-1"></fa-icon>
+            <div>
+              <strong>Site da Empresa:</strong><br>
+              <span>{{ companyData.website || 'Não há nenhum site' }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Contatos -->
+      <section>
+        <h3 class="text-xl font-semibold mb-4">Contatos</h3>
+        <div class="space-y-4 text-white/90">
+          <div class="flex items-start gap-3">
+            <fa-icon [icon]="faCircleUser" class="w-5 h-5 mt-1"></fa-icon>
+            <div>
+              <strong>Resposavel:</strong><br>
+              <span class="capitalize block">{{ companyData.manager || 'Não Há nenhum Resposavel Atribuido' }}</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <fa-icon [icon]="faPhone" class="w-5 h-5 mt-1"></fa-icon>
+            <div>
+              <strong>Telefone:</strong><br>
+              <span>{{ companyData.phoneNumber }}</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <fa-icon [icon]="faEnvelope" class="w-5 h-5 mt-1"></fa-icon>
+            <div>
+              <strong>E-mail:</strong><br>
+              <span>{{ companyData.businessEmail }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Infomações de endereçp -->
+      <section>
+        <h3 class="text-xl font-semibold mb-4">Informações de Endereço</h3>
+        <div class="space-y-4 text-white/90">
+          <div class="flex items-start gap-3">
+            <fa-icon [icon]="faLocationDot" class="w-5 h-5 mt-1"></fa-icon>
+            <div>
+              <strong>CEP:</strong><br>
+              <span>{{ companyData.cep }}</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <fa-icon [icon]="faMapLocationDot" class="w-5 h-5 mt-1"></fa-icon>
+            <div>
+              <strong>Endereço:</strong><br>
+              <span>{{ companyData.address }}</span>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <fa-icon [icon]="faMapPin" class="w-5 h-5 mt-1"></fa-icon>
+            <div>
+              <strong>Número:</strong><br>
+              <span>{{ companyData.addressNumber }}</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </loading-component>
+</div>

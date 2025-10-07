@@ -48,7 +48,7 @@ class Icons {
             </thead>
             <tbody>
               @for (company of companies; track company.id) {
-                <tr class="border-b border-white/10 hover:bg-white/5 cursor-pointer">
+                <tr (click)="detail(company.id)" class="border-b border-white/10 hover:bg-white/5 cursor-pointer">
                   <td class="p-3">{{company.doingBusinessAs}}</td>
                   <td class="p-3">{{ company.managerName }}</td>
                   <td class="p-3">{{ company.subscriptionPlan }}</td>
@@ -99,6 +99,10 @@ export class Companies extends Icons implements OnInit {
       next: res => this.companies = res.companies,
       error: err => console.error('Erro ao carregar os dados da empresa')
     })
+  }
+
+  detail(companyId: string): void {
+    this.router.navigate([companyId], {relativeTo: this.route});
   }
 
   update(companyId: string): void {
