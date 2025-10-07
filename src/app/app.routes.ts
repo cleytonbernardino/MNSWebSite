@@ -4,8 +4,19 @@ import {Companies} from './pages/admin/companies/companies';
 import {AuthLayout} from './layouts/auth.layout/auth.layout';
 import {ControlPanelAdmin} from './pages/admin/control-panel-admin/control-panel-admin';
 import {MainLayout} from './layouts/main.layout/main.layout';
-import {AddCompanyComponent} from './Components/add-company.component/add-company.component';
+import {AddCompanyComponent} from './pages/admin/add-company.component/add-company.component';
 import {authGuard} from './guards/auth-guard';
+import {
+  CompanyInformationComponent
+} from './Components/add-company/company-Information.component/company-Information.component';
+import {
+  AddressInformationComponent
+} from './Components/add-company/address-information.component/address-information.component';
+import {
+  AdditionalInformationComponent
+} from './Components/add-company/additional-information.component/additional-information.component';
+import {UpdateCompany} from './pages/admin/update-company/update-company';
+import {DetailCompanyComponent} from './pages/admin/detail-company.component/detail-company.component';
 
 export const routes: Routes = [
   {
@@ -15,7 +26,9 @@ export const routes: Routes = [
     children: [
       {path: '', component: ControlPanelAdmin},
       {path: 'companies', component: Companies},
-      {path: 'companies/add', component: AddCompanyComponent}
+      {path: 'companies/add', component: AddCompanyComponent},
+      {path: 'companies/:id', component: DetailCompanyComponent},
+      {path: 'companies/:id/update', component: UpdateCompany}
     ]
   },
   {

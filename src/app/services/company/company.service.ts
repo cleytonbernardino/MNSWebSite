@@ -1,8 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {environment} from '../../environments/environment';
-import {catchError, map, Observable, retry, throwError} from 'rxjs';
-import {Companies} from '../pages/admin/companies/companies';
+import {environment} from '../../../environments/environment';
+import {Observable, throwError} from 'rxjs';
 
 const apiUrl = `${environment.apiUrl}/admin/company`;
 
@@ -12,8 +11,26 @@ const apiUrl = `${environment.apiUrl}/admin/company`;
 export class CompanyService {
   private http = inject(HttpClient);
 
-  getCompanies(): Observable<ResponseCompany> {
-    return this.http.get<ResponseCompany>(apiUrl);
+  getCompanies(): Observable<ResponseCompanies> {
+    return this.http.get<ResponseCompanies>(apiUrl);
+  }
+
+  getCompany(id: string): Observable<ResponseCompany>{
+    const url: string  = `${environment.apiUrl}/company/${id}`;
+    return this.http.get<ResponseCompany>(url)
+  }
+
+  register(request: RequestRegisterCompany): Observable<void> {
+    return this.http.post<void>(apiUrl, request);
+  }
+
+  update(id:string, request: RequestRegisterCompany): Observable<void> {
+    const url: string = `${apiUrl}/${id}`
+    return this.http.put<void>(url, request);
+  }
+
+  delete(companyId: string) {
+    return this.http.delete(`${apiUrl}/${companyId}`);
   }
 
   private handleError(error: HttpErrorResponse): Observable<never> {

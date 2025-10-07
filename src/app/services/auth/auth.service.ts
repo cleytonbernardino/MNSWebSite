@@ -1,5 +1,5 @@
 import {computed, effect, inject, Injectable, signal} from '@angular/core';
-import {environment} from '../../environments/environment';
+import {environment} from '../../../environments/environment';
 import {catchError, NEVER, Observable, switchMap, tap, throwError} from 'rxjs';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Router} from '@angular/router';
@@ -86,7 +86,7 @@ export class AuthService {
       }),
       catchError((error: HttpErrorResponse) => {
         this.isRefreshingSignal.set(false);
-        //this.clearAccessToken();
+        this.clearAccessToken();
         this.handleAuthError();
         return throwError(() => error);
       })

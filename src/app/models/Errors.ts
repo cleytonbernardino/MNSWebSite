@@ -1,0 +1,3 @@
+﻿interface ResponseErrors {
+  errors: string[];
+}
